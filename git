@@ -1,0 +1,11 @@
+
+alias st="git status"
+alias addall="git add --verbose --all"
+alias delall="git add --all"
+alias up="git fetch --all&&git pull --all"
+
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUPSTREAM='auto'
+
+[[ -r $HOME/.bin/bash/lib/git/git-completion.bash ]] && source $HOME/.bin/bash/lib/git/git-completion.bash
+[[ -r $HOME/.bin/bash/lib/git/git-prompt.sh ]] && source $HOME/.bin/bash/lib/git/git-prompt.sh

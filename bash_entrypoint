@@ -1,0 +1,48 @@
+export PATH=$HOME/.bin:/usr/local/git/bin:/usr/local/sbin:$PATH
+
+# Make ls and grep be colourful
+# export CLICOLOR=1
+export GREP_OPTIONS='--color=auto'
+
+# export LSCOLORS=Cxfxcxdxbxegedabagacad
+export DISPLAY=:0.0
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+export EDITOR='subl -w'
+
+[[ -r $HOME/.bin/bash/colors ]] && source $HOME/.bin/bash/colors
+[[ -r $HOME/.bin/bash/git ]] && source $HOME/.bin/bash/git
+
+export PROMPT_COLOR=$Purple
+
+export PS1="\[${White}\]\W\[${Yellow}\]\$(__git_ps1 '(%s)') \[${White}\]\u\[${PROMPT_COLOR}\]\$\[${Color_Off}\] "
+
+export CODE_DIR="$HOME/Development"
+
+alias src="source ~/.bash_profile"
+alias brc="$EDITOR ~/.bash_profile"
+alias renpm="rm -rf node_modules&&npm i"
+
+# Jump to projects
+go() {
+	if [[ $# -eq 1 ]]; then
+		cd $CODE_DIR/$1
+	else
+		cd $CODE_DIR
+	fi
+}
+
+_get_projects() { 
+    local cur files
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    files=$(ls $CODE_DIR) 
+    COMPREPLY=( $(compgen -W "${files}" -- ${cur}) )
+}
+
+complete -d _get_projects go
+
+go
+
